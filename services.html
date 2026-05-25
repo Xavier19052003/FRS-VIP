@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | FRS VIP Protection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* CSS Variables */
+        :root {
+            --bg-main: #0a0a0a;
+            --bg-surface: #111111;
+            --bg-card: #161616;
+            --accent: #FFC107;
+            --accent-hover: #e0a800;
+            --text-light: #ffffff;
+            --text-muted: #999999;
+            --border-color: #222222;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --transition-fast: all 0.2s ease-in-out;
+        }
+
+        /* Reset & Base Styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; object-fit: cover; }
+
+        .container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+        .text-accent { color: var(--accent); }
+        .section-padding { padding: 100px 0; }
+
+        /* Buttons & Dynamic Controls */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            background: var(--accent); color: #000;
+            padding: 12px 28px; font-weight: 800; font-size: 0.85rem;
+            text-transform: uppercase; letter-spacing: 0.5px;
+            border-radius: 4px; border: 1px solid var(--accent);
+            cursor: pointer; transition: var(--transition-fast);
+            position: relative; z-index: 1; text-align: center;
+        }
+        .btn:hover { background: var(--accent-hover); border-color: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3); }
+        .btn:active { transform: translateY(0); }
+
+        .btn-outline { background: transparent; color: var(--text-light); border: 1px solid var(--border-color); }
+        .btn-outline:hover { background: rgba(255, 255, 255, 0.05); border-color: var(--text-light); color: var(--text-light); transform: translateY(-2px); box-shadow: none; }
+
+        /* Header Navigation */
+        header {
+            position: fixed; top: 0; width: 100%;
+            background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000; padding: 1rem 0; transition: var(--transition);
+        }
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 10px; color: var(--accent); }
+        .logo img { display: block; width: 100px; max-width: 100px; height: auto; }
+        .logo-icon { font-size: 2rem; }
+        
+        .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+        .nav-links a { font-size: 0.9rem; font-weight: 600; color: var(--text-muted); transition: var(--transition-fast); position: relative; }
+        .nav-links a:hover { color: var(--text-light); }
+        .nav-links a::after { content: ''; position: absolute; width: 0%; height: 2px; bottom: -5px; left: 0; background-color: var(--accent); transition: var(--transition-fast); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-links a.active { color: var(--accent); }
+        
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
+
+        /* Perfect Banner Matching Wireframe */
+        .hero {
+            margin-top: 80px; height: 60vh; min-height: 450px;
+            background: linear-gradient(rgba(10,10,10,0.8), rgba(10,10,10,0.95)), 
+                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .hero-catalog-tag {
+            color: var(--accent); font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+            font-size: 0.75rem; background: rgba(255,193,7,0.1); padding: 6px 16px;
+            border-radius: 4px; margin-bottom: 1.5rem; border: 1px solid rgba(255,193,7,0.2);
+        }
+        .hero h1 { font-size: 4rem; font-weight: 900; text-transform: uppercase; margin-bottom: 1.5rem; line-height: 1.1; letter-spacing: -0.5px; }
+        .hero p { color: var(--text-muted); font-size: 1.05rem; max-width: 750px; padding: 0 1rem; line-height: 1.7; }
+
+        /* Layout Architecture */
+        .catalog-section-title { margin-bottom: 3rem; }
+        .catalog-section-title span { color: var(--accent); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 0.5rem; }
+        .catalog-section-title h2 { font-size: 2.8rem; font-weight: 900; text-transform: uppercase; }
+
+        .asymmetrical-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+        .asymmetrical-grid.reversed { grid-template-columns: 1fr 1.3fr; }
+
+        /* Individual Card Renderings */
+        .feature-image-card {
+            position: relative; border-radius: 6px; overflow: hidden; border: 1px solid var(--border-color);
+            min-height: 420px; display: flex; flex-direction: column; justify-content: flex-end; padding: 3rem 2.5rem;
+            background-size: cover; background-position: center; transition: var(--transition);
+        }
+        .feature-image-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(10,10,10,0.95) 40%, rgba(10,10,10,0.3) 100%); z-index: 1; }
+        .feature-image-card:hover { border-color: rgba(255,193,7,0.3); box-shadow: 0 15px 30px rgba(0,0,0,0.4); transform: translateY(-5px); }
+
+        .card-inner-content { position: relative; z-index: 2; }
+        .status-badge { position: absolute; top: 2.5rem; right: 2.5rem; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,193,7,0.4); color: var(--accent); font-size: 0.65rem; font-weight: 800; text-transform: uppercase; padding: 4px 10px; border-radius: 3px; letter-spacing: 1px; z-index: 2; }
+        .card-label { color: var(--accent); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.5rem; display: block; }
+        .feature-image-card h3, .standard-border-card h3 { font-size: 1.8rem; font-weight: 900; text-transform: uppercase; margin-bottom: 1rem; }
+        .feature-image-card p, .standard-border-card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; max-width: 550px; line-height: 1.6; }
+
+        .pill-tags { display: flex; gap: 10px; flex-wrap: wrap; }
+        .pill-tag { background: rgba(0,0,0,0.4); border: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; padding: 6px 14px; border-radius: 3px; letter-spacing: 0.5px; transition: var(--transition-fast); }
+        .feature-image-card:hover .pill-tag, .standard-border-card:hover .pill-tag { border-color: rgba(255,193,7,0.2); color: var(--text-light); }
+
+        .standard-border-card {
+            background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 6px; padding: 3rem 2.5rem;
+            display: flex; flex-direction: column; justify-content: center; transition: var(--transition);
+        }
+        .standard-border-card:hover { border-color: rgba(255,193,7,0.3); background: #151515; transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.4); }
+        .card-icon-top { color: var(--accent); font-size: 1.8rem; margin-bottom: 1.5rem; background: rgba(255,193,7,0.05); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 4px; }
+
+        .card-link-bottom { margin-top: 1rem; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--accent); letter-spacing: 1px; display: inline-flex; align-items: center; gap: 8px; transition: var(--transition-fast); }
+        .standard-border-card:hover .card-link-bottom { transform: translateX(5px); color: var(--text-light); }
+
+        .checkmark-list { margin-bottom: 1.5rem; }
+        .checkmark-item { display: flex; align-items: center; gap: 10px; font-size: 0.75rem; font-weight: 700; color: var(--text-light); text-transform: uppercase; margin-bottom: 0.6rem; letter-spacing: 0.5px; }
+        .checkmark-item i { color: var(--accent); font-size: 0.85rem; }
+
+        /* Technical Installations Section Layout */
+        .tech-module-grid { display: grid; grid-template-columns: 320px 1fr; gap: 3rem; align-items: flex-start; }
+        .tech-selector-list { display: flex; flex-direction: column; gap: 10px; }
+        .selector-pill {
+            background: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-muted);
+            padding: 16px 20px; text-align: center; font-size: 0.8rem; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 1px; border-radius: 4px; cursor: pointer; transition: var(--transition-fast);
+        }
+        .selector-pill:hover { background: #222; color: var(--text-light); }
+        .selector-pill.active { background: var(--accent); color: #000; border-color: var(--accent); box-shadow: 0 4px 15px rgba(255,193,7,0.2); transform: translateX(5px); }
+
+        .tech-display-panel { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 6px; padding: 3.5rem; position: relative; }
+        .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; }
+        .panel-header-left { display: flex; align-items: center; gap: 12px; }
+        .panel-header-left i { color: var(--accent); }
+        .panel-header-left span { font-weight: 900; font-size: 0.9rem; text-transform: uppercase; }
+        .panel-header-right { font-size: 0.7rem; color: var(--accent); font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+
+        .tech-display-panel h3 { font-size: 1.8rem; font-weight: 900; text-transform: uppercase; margin-bottom: 1rem; color: var(--accent); }
+        .panel-description { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.6; }
+
+        .standards-header-label { font-size: 0.65rem; font-weight: 800; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1rem; display: block; }
+        .standards-subgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 2.5rem; }
+        .standard-check-box { background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); padding: 1.2rem; border-radius: 4px; display: flex; gap: 12px; align-items: flex-start; font-size: 0.85rem; color: var(--text-light); }
+        .standard-check-box i { color: var(--accent); margin-top: 3px; }
+
+        .panel-footer-row { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); padding-top: 1.5rem; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+        .panel-footer-row span:first-child { color: #666; }
+        .panel-footer-row span:last-child { color: var(--accent); }
+
+        .tech-tab-content { display: none; }
+        .tech-tab-content.active { display: block; animation: panelFadeIn 0.4s ease forwards; }
+        @keyframes panelFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Custom Wireframe CTA Section */
+        .cta-section { border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); text-align: center; background: linear-gradient(rgba(10,10,10,0.9), rgba(10,10,10,0.95)), url('https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2000&auto=format&fit=crop') center/cover; }
+        .cta-container h2 { font-size: 3rem; font-weight: 900; text-transform: uppercase; margin-bottom: 1rem; letter-spacing: -0.5px; }
+        .cta-container p { color: var(--text-muted); max-width: 650px; margin: 0 auto 2.5rem; font-size: 1.05rem; line-height: 1.7; }
+        .cta-buttons-wrapper { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+
+        /* Footer Alignment */
+        footer { background: #080808; padding: 5rem 0 2rem; }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.5fr; gap: 3rem; margin-bottom: 3rem; }
+        .footer-logo { display: flex; align-items: center; gap: 10px; font-size: 1.2rem; font-weight: 900; color: var(--accent); margin-bottom: 1.5rem; }
+        .footer-col p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem; }
+        .footer-col h5 { font-size: 0.9rem; font-weight: 800; text-transform: uppercase; margin-bottom: 1.5rem; }
+        .footer-links li { margin-bottom: 0.8rem; }
+        .footer-links a { color: var(--text-muted); font-size: 0.85rem; transition: var(--transition-fast); display: inline-block; }
+        .footer-links a:hover { color: var(--accent); transform: translateX(5px); }
+        
+        .location-item { display: flex; gap: 15px; margin-bottom: 1.5rem; }
+        .location-item i { color: var(--accent); margin-top: 3px; }
+        .loc-text strong { display: block; font-size: 0.85rem; margin-bottom: 3px; }
+        .loc-text span { color: var(--text-muted); font-size: 0.8rem; }
+
+        .dispatch-box { background: var(--bg-surface); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 6px; }
+        .phone-line { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
+        .phone-line i, .phone-line span { color: var(--accent); font-weight: 800; font-size: 1rem; }
+        
+        .footer-bottom { border-top: 1px solid var(--border-color); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: #555; text-transform: uppercase; letter-spacing: 1px; flex-wrap: wrap; gap: 15px;}
+        .mini-btns { display: flex; gap: 10px; }
+        .mini-btn { width: 35px; height: 35px; background: rgba(0,0,0,0.5); border: 1px solid var(--border-color); color: var(--text-muted); display: flex; align-items: center; justify-content: center; border-radius: 4px; cursor: pointer; transition: var(--transition-fast); }
+        .mini-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* Scroll Revelations */
+        .scroll-reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .reveal-visible { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.15s; }
+
+        /* ---------------------------------------------------
+           RESPONSIVE ARCHITECTURE 
+           --------------------------------------------------- */
+        
+        @media (max-width: 1200px) {
+            .hero h1 { font-size: 3.5rem; }
+            .catalog-section-title h2 { font-size: 2.2rem; }
+            .tech-module-grid { grid-template-columns: 280px 1fr; gap: 2rem; }
+        }
+
+        @media (max-width: 1024px) {
+            .asymmetrical-grid, .asymmetrical-grid.reversed { grid-template-columns: 1fr; gap: 2rem; }
+            .tech-module-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+            
+            .tech-selector-list { flex-direction: row; flex-wrap: wrap; margin-bottom: 2rem; }
+            .selector-pill { flex: 1 1 calc(50% - 10px); }
+            .selector-pill.active { transform: translateY(-3px); }
+            .logo img { width: 90px; max-width: 90px; }
+        }
+
+        @media (max-width: 768px) {
+            .section-padding { padding: 60px 0; }
+            .hero { height: auto; min-height: 50vh; }
+            .hero h1 { font-size: 2.6rem; margin-bottom: 1rem; }
+            .cta-container h2 { font-size: 2.2rem; }
+            .logo img { width: 80px; max-width: 80px; }
+            .standards-subgrid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .footer-bottom { flex-direction: column; text-align: center; gap: 1rem; }
+            
+            .menu-toggle { display: block; }
+            .nav-links {
+                position: absolute; top: 100%; left: 0; width: 100%;
+                background: #111; flex-direction: column; padding: 0;
+                border-bottom: 1px solid var(--border-color); max-height: 0;
+                overflow: hidden; transition: max-height 0.4s ease-out;
+            }
+            .nav-links.active { max-height: 400px; padding: 2rem; }
+            .nav-links .btn { width: 100%; }
+            
+            .cta-buttons-wrapper { flex-direction: column; }
+            .cta-buttons-wrapper .btn { width: 100%; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 0 1.2rem; }
+            .section-padding { padding: 50px 0; }
+            .hero h1 { font-size: 2.2rem; }
+            .catalog-section-title h2 { font-size: 1.8rem; }
+            .logo img { width: 64px; max-width: 64px; }
+            
+            .feature-image-card, .standard-border-card, .tech-display-panel { padding: 2rem 1.5rem; }
+            .selector-pill { flex: 1 1 100%; }
+            .panel-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .panel-footer-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <img src="Untitled design.png" alt="FRS VIP Protection logo">
+                </div>
+                <div class="menu-toggle" id="mobile-menu" onclick="toggleMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                <div class="nav-links" id="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="services.html" class="active">Services</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="contact.html" class="btn" style="width: 100%;">Get Secured</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container scroll-reveal">
+            <div class="hero-catalog-tag">Security Catalog</div>
+            <h1>Elite <span class="text-accent">Protection</span> Services</h1>
+            <p>Absolute discretion and reliable coverage. We provide executive-level safety tailored for high-net-worth individuals and corporate entities in South Africa.</p>
+        </div>
+    </section>
+
+    <section class="section-padding">
+        <div class="container">
+            
+            <div class="catalog-section-title scroll-reveal">
+                <span>Services Catalog</span>
+                <h2>Comprehensive Solutions</h2>
+            </div>
+
+            <div class="asymmetrical-grid scroll-reveal">
+                <div class="feature-image-card" style="background-image: url('https://images.unsplash.com/photo-1582139329536-e7284fece509?q=80&w=1000&auto=format&fit=crop');">
+                    <span class="status-badge">Registered Status</span>
+                    <div class="card-inner-content">
+                        <span class="card-label">Facility & Asset Guarding</span>
+                        <h3>Commercial Guarding</h3>
+                        <p>Highly trained security personnel stationed at your business premises. Our guards are selected for their professionalism, integrity, and ability to manage complex corporate environments.</p>
+                        <div class="pill-tags">
+                            <span class="pill-tag">Asset Loss Prevention</span>
+                            <span class="pill-tag">Access Control</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="standard-border-card">
+                    <div class="card-icon-top"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3>Armed Response</h3>
+                    <p>Rapid tactical deployment for critical situations. Our response teams are equipped with high-range gear and undergo rigorous continuous training.</p>
+                    <a href="contact.html" class="card-link-bottom">24/7 Rapid Deployment <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="asymmetrical-grid reversed scroll-reveal">
+                <div class="standard-border-card">
+                    <div class="card-icon-top"><i class="fa-solid fa-user-lock"></i></div>
+                    <h3>Executive Protection</h3>
+                    <p>Discreet and professional close protection for corporate executives, delegates, and families. We prioritize confidentiality and passive safety without altering your schedule. Complete privacy and full NDAs guaranteed.</p>
+                    <div class="checkmark-list">
+                        <div class="checkmark-item"><i class="fa-solid fa-check"></i> Personal C0V-Guards</div>
+                        <div class="checkmark-item"><i class="fa-solid fa-check"></i> Pre-Screened Route Codes</div>
+                    </div>
+                    <span style="font-size: 0.65rem; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">* Premium Discretion Assured</span>
+                </div>
+
+                <div class="feature-image-card" style="background-image: url('https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1000&auto=format&fit=crop');">
+                    <div class="card-inner-content">
+                        <span class="card-label">Premium Vehicle Logistics</span>
+                        <h3>Secure Transportation</h3>
+                        <p>Reliable and secure transportation for business teams, associates, and families. Our fleet of high-end, premium vehicles ensures you travel with complete safety, supported by on-call supervisor dispatch monitoring.</p>
+                        <a href="contact.html" class="btn btn-outline" style="width: auto; font-size: 0.75rem; padding: 10px 20px;">View Fleet Vehicles</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section-padding" style="background: #0d0d0d; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+        <div class="container tech-module-grid">
+            
+            <div class="tech-selector-list scroll-reveal">
+                <div class="catalog-section-title" style="margin-bottom: 1.5rem;">
+                    <span>Hardware & Alarm Systems</span>
+                    <h2 style="font-size: 1.8rem;">Technical Installations</h2>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Advanced alarms, modern camera systems, and 24/7 monitoring services. We integrate reliable security technology to keep your premises constantly checked. Click any module to view live status checklists.</p>
+                <div class="selector-pill active" onclick="switchTechTab(event, 'cctv')">Select CCTV</div>
+                <div class="selector-pill" onclick="switchTechTab(event, 'biometrics')">Select Biometrics</div>
+                <div class="selector-pill" onclick="switchTechTab(event, 'alarms')">Select Alarms</div>
+                <div class="selector-pill" onclick="switchTechTab(event, 'monitoring')">Select Monitoring</div>
+            </div>
+
+            <div class="tech-display-panel scroll-reveal delay-1">
+                
+                <div id="cctv" class="tech-tab-content active">
+                    <div class="panel-header">
+                        <div class="panel-header-left">
+                            <i class="fa-solid fa-square-check"></i>
+                            <span>System Profile & Core Features</span>
+                        </div>
+                        <div class="panel-header-right">CCTV Installation</div>
+                    </div>
+                    <h3>Premium CCTV Surveillance</h3>
+                    <p class="panel-description">Advanced ultra-HD commercial security cameras with remote access integration, active motion alarms, and supervisor notifications.</p>
+                    
+                    <span class="standards-header-label">Operational Standards & Deliverables:</span>
+                    <div class="standards-subgrid">
+                        <div class="standard-check-box">
+                            <i class="fa-solid fa-check"></i>
+                            <div>Continuous 24/7 high-definition operational video capture</div>
+                        </div>
+                        <div class="standard-check-box">
+                            <i class="fa-solid fa-check"></i>
+                            <div>Advanced night-vision and active motion sensors</div>
+                        </div>
+                        <div class="standard-check-box">
+                            <i class="fa-solid fa-check"></i>
+                            <div>Direct connection to the FRS central monitoring unit</div>
+                        </div>
+                        <div class="standard-check-box">
+                            <i class="fa-solid fa-check"></i>
+                            <div>Remote viewing integration for property supervisors</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="biometrics" class="tech-tab-content">
+                    <div class="panel-header">
+                        <div class="panel-header-left">
+                            <i class="fa-solid fa-fingerprint"></i>
+                            <span>Identity Management Systems</span>
+                        </div>
+                        <div class="panel-header-right">Biometric Access</div>
+                    </div>
+                    <h3>Biometric Access Control</h3>
+                    <p class="panel-description">High-grade secure biometric entry systems tracking unique biometric profiles for total property entry logging.</p>
+                    
+                    <span class="standards-header-label">Operational Standards & Deliverables:</span>
+                    <div class="standards-subgrid">
+                        <div class="standard-check-box">
+                            <i class="fa-solid fa-check"></i>
+                            <div>Instant cryptographic validation of credential keys</div>
+                        </div>
+                        <div class="standard-check-box">
+                            <i class="fa-solid fa-check"></i>
+                            <div>Anti-passback protocols across multi-tier perimeters</div>
+                        </div>
+                        <div class="standard-check-box">
+                            <i class="fa-solid fa-check"></i>
+                            <div>Seamless payroll database linking architecture</div>
+                        </div>
+                        <div class="standard-check-box">
+                            <i class="fa-solid fa-check"></i>
+                            <div>Heavy-duty lock integration with override loops</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="alarms" class="tech-tab-content">
+                    <div class="panel-header">
+                        <div class="panel-header-left">
+                            <i class="fa-solid fa-bell"></i>
+                            <span>Perimeter Alert Systems</span>
+                        </div>
+                        <div class="panel-header-right">Smart Alarms</div>
+                    </div>
+                    <h3>Technical Alarm Hardware</h3>
+                    <p class="panel-description">Intelligent vibration and entry point analysis alarm configurations alerting regional networks instantaneously.</p>
+                    
+                    <span class="standards-header-label">Operational Standards & Deliverables:</span>
+                    <div class="standards-subgrid">
+                        <div class="standard-check-box">
+                            <i class="fa-solid fa-check"></i>
+                            <div>Sealed circuit sensors resistant to wire cutting</div>
+                        </div>
+                        <div class="standard-check-box">
+                            <i class="fa-solid fa-check"></i>
+                            <div>Silent duress code relays for extreme situations</div>
+                        </div>
+                        <div class="standard-check-box">
+                            <i class="fa-solid fa-check"></i>
+                            <div>Backup solar configuration loop functionality</div>
+                        </div>
+                        <div class="standard-check-box">
+                            <i class="fa-solid fa-check"></i>
+                            <div>Instant smartphone app tracking sync channels</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="monitoring" class="tech-tab-content">
+                    <div class="panel-header">
+                        <div class="panel-header-left">
+                            <i class="fa-solid fa-display"></i>
+                            <span>Control Center Linkage</span>
+                        </div>
+                        <div class="panel-header-right">Remote Monitoring</div>
+                    </div>
+                    <h3>24/7 Control Room Sync</h3>
+                    <p class="panel-description">Direct data synchronization pipelines linking property systems immediately to central defense monitoring supervisors.</p>
+                    
+                    <span class="standards-header-label">Operational Standards & Deliverables:</span>
+                    <div class="standards-subgrid">
+                        <div class="standard-check-box">
+                            <i class="fa-solid fa-check"></i>
+                            <div>Sub-second threat response routing initialization</div>
+                        </div>
+                        <div class="standard-check-box">
+                            <i class="fa-solid fa-check"></i>
+                            <div>Artificial intelligence system error check audits</div>
+                        </div>
+                        <div class="standard-check-box">
+                            <i class="fa-solid fa-check"></i>
+                            <div>End-to-end encryption across surveillance lines</div>
+                        </div>
+                        <div class="standard-check-box">
+                            <i class="fa-solid fa-check"></i>
+                            <div>Hourly system checks verification updates</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-footer-row">
+                    <span>Premium Grade Security Hardware</span>
+                    <span>Fully Regulated & Compliant</span>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section-padding cta-section">
+        <div class="container cta-container scroll-reveal">
+            <h2>Ready To Secure <span class="text-accent">Your Property?</span></h2>
+            <p>Protect your business, associates, and home with professional security coverage customized specifically to your setup. Reach out now.</p>
+            <div class="cta-buttons-wrapper">
+                <a href="contact.html" class="btn">Request A Free Quote</a>
+                <a href="contact.html" class="btn btn-outline">Talk To An Expert</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid scroll-reveal">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fa-solid fa-shield-halved logo-icon"></i>
+                        <div>FRS VIP<br><span style="font-size: 0.6rem; letter-spacing: 2px;">PROTECTION</span></div>
+                    </div>
+                    <p>South Africa's leading private intelligence and executive protection firm. Dedicated to absolute autonomy, discretion, and unwavering vigilance. Registered and regulated by PSIRA.</p>
+                    <p style="margin-top: 1rem; font-size: 0.75rem; color: #666;">PSIRA Reg: 4862292</p>
+                    <div class="mini-btns" style="margin-top: 1.5rem;">
+                        <div class="mini-btn"><i class="fa-solid fa-globe"></i></div>
+                        <div class="mini-btn"><i class="fa-solid fa-shield-check"></i></div>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Operations & Protocols</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Security Protocols</a></li>
+                        <li><a href="#">PSIRA Verification Check</a></li>
+                        <li><a href="#">Vetting & Screening</a></li>
+                        <li><a href="#">Privacy Policy & NDAs</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Regional HQs</h5>
+                    <div class="location-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div class="loc-text">
+                            <strong>Durban HQ</strong>
+                            <span>86 Suleman Road, Parlock, Newlands West, Durban</span>
+                        </div>
+                    </div>
+                    <div class="location-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div class="loc-text">
+                            <strong>Johannesburg Office</strong>
+                            <span>Sovereign commercial coverage</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Emergency Dispatch Hub</h5>
+                    <div class="dispatch-box">
+                        <div class="phone-line">
+                            <i class="fa-solid fa-phone"></i>
+                            <span>+27 72 875 3169</span>
+                        </div>
+                        <div class="phone-line">
+                            <i class="fa-solid fa-phone"></i>
+                            <span>+27 61 508 1951</span>
+                        </div>
+                        <p style="font-size: 0.65rem; color: #666; margin: 10px 0; text-transform: uppercase; letter-spacing: 1px;">Operations Center Available 24/7/365</p>
+                        <div style="font-size:0.8rem; color:var(--text-muted); display:flex; gap:10px; align-items:center; margin-bottom:5px;"><i class="fa-regular fa-envelope"></i> firstandsecure@gmail.com</div>
+                        <div style="font-size:0.8rem; color:var(--text-muted); display:flex; gap:10px; align-items:center;"><i class="fa-solid fa-map-pin"></i> South Africa</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom scroll-reveal">
+                <div>&copy; 2026 FRS VIP PROTECTION. PSIRA Reg: 4862292. All Rights Reserved.</div>
+                <div>Designed For Ultimate Discretion</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Interactive Technical Specifications Subtabs Logic
+        function switchTechTab(evt, tabName) {
+            let contents = document.getElementsByClassName("tech-tab-content");
+            for (let i = 0; i < contents.length; i++) {
+                contents[i].style.display = "none";
+                contents[i].classList.remove("active");
+            }
+
+            let pills = document.getElementsByClassName("selector-pill");
+            for (let i = 0; i < pills.length; i++) {
+                pills[i].classList.remove("active");
+            }
+
+            let activeTab = document.getElementById(tabName);
+            activeTab.style.display = "block";
+            setTimeout(() => { activeTab.classList.add("active"); }, 10);
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Mobile Dropdown Control Function
+        function toggleMenu() {
+            let nav = document.getElementById("nav-links");
+            nav.classList.toggle("active");
+            let icon = document.querySelector(".menu-toggle i");
+            if (nav.classList.contains("active")) {
+                icon.classList.remove("fa-bars");
+                icon.classList.add("fa-xmark");
+            } else {
+                icon.classList.remove("fa-xmark");
+                icon.classList.add("fa-bars");
+            }
+        }
+
+        // Lightweight Performance Observer for Scroll Load-Ins
+        document.addEventListener('DOMContentLoaded', () => {
+            const options = { root: null, rootMargin: '0px', threshold: 0.1 };
+
+            const entryRevealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, options);
+
+            const componentsToReveal = document.querySelectorAll('.scroll-reveal');
+            componentsToReveal.forEach(element => entryRevealObserver.observe(element));
+        });
+    </script>
+</body>
+</html>
