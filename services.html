@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Services | FRS VIP Protection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+        /* ── CSS Variables ── */
+        :root {
+            --bg-main: #0a0a0a;
+            --bg-surface: #111111;
+            --bg-card: #161616;
+            --accent: #FFC107;
+            --accent-hover: #e0a800;
+            --text-light: #ffffff;
+            --text-muted: #999999;
+            --border-color: #222222;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --transition-fast: all 0.2s ease-in-out;
+        }
+
+        /* ── Reset & Base ── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            overflow-y: auto;
+            height: 100%;
+            -webkit-overflow-scrolling: touch;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            width: 100%;
+            height: 100%;
+            min-height: 100%;
+            position: relative;
+        }
+
+        body,
+        .nav-links,
+        .container {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        ul {
+            list-style: none;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .text-accent {
+            color: var(--accent);
+        }
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        /* ── Buttons ── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent);
+            color: #000;
+            padding: 12px 28px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 4px;
+            border: 1px solid var(--accent);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .btn:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+        }
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-light);
+            border: 1px solid var(--border-color);
+        }
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--text-light);
+            color: var(--text-light);
+            transform: translateY(-2px);
+            box-shadow: none;
+        }
+
+        /* ── Header ── */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: var(--transition);
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--accent);
+        }
+        .logo img {
+            display: block;
+            width: 220px;
+            max-width: 220px;
+            height: auto;
+        }
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: var(--transition-fast);
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .nav-links a:hover {
+            color: var(--text-light);
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent);
+            transition: var(--transition-fast);
+        }
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            margin-top: 80px;
+            min-height: 60vh;
+            min-height: 450px;
+            background: linear-gradient(rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.8)),
+                url('images/services_banner.jpeg') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .hero-catalog-tag {
+            color: var(--accent);
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            background: rgba(255, 193, 7, 0.1);
+            padding: 6px 16px;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 193, 7, 0.2);
+        }
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            letter-spacing: -0.5px;
+        }
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 750px;
+            padding: 0 1rem;
+            line-height: 1.7;
+        }
+
+        /* ── Layout ── */
+        .catalog-section-title {
+            margin-bottom: 3rem;
+        }
+        .catalog-section-title span {
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .catalog-section-title h2 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .asymmetrical-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .asymmetrical-grid.reversed {
+            grid-template-columns: 1fr 1.3fr;
+        }
+
+        /* ── Cards ── */
+        .feature-image-card {
+            position: relative;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            min-height: 420px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 3rem 2.5rem;
+            background-size: cover;
+            background-position: center;
+            transition: var(--transition);
+        }
+        .feature-image-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(10, 10, 10, 0.95) 40%, rgba(10, 10, 10, 0.3) 100%);
+            z-index: 1;
+        }
+        .feature-image-card:hover {
+            border-color: rgba(255, 193, 7, 0.3);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .card-inner-content {
+            position: relative;
+            z-index: 2;
+        }
+        .status-badge {
+            position: absolute;
+            top: 2.5rem;
+            right: 2.5rem;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 193, 7, 0.4);
+            color: var(--accent);
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 3px;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+        .card-label {
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .feature-image-card h3,
+        .standard-border-card h3 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .feature-image-card p,
+        .standard-border-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            max-width: 550px;
+            line-height: 1.6;
+        }
+
+        .pill-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .pill-tag {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 3px;
+            letter-spacing: 0.5px;
+            transition: var(--transition-fast);
+        }
+        .feature-image-card:hover .pill-tag,
+        .standard-border-card:hover .pill-tag {
+            border-color: rgba(255, 193, 7, 0.2);
+            color: var(--text-light);
+        }
+
+        .standard-border-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 3rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        .standard-border-card:hover {
+            border-color: rgba(255, 193, 7, 0.3);
+            background: #151515;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        .card-icon-top {
+            color: var(--accent);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            background: rgba(255, 193, 7, 0.05);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+
+        .card-link-bottom {
+            margin-top: 1rem;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--accent);
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition-fast);
+            -webkit-tap-highlight-color: transparent;
+        }
+        .standard-border-card:hover .card-link-bottom {
+            transform: translateX(5px);
+            color: var(--text-light);
+        }
+
+        .checkmark-list {
+            margin-bottom: 1.5rem;
+        }
+        .checkmark-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-transform: uppercase;
+            margin-bottom: 0.6rem;
+            letter-spacing: 0.5px;
+        }
+        .checkmark-item i {
+            color: var(--accent);
+            font-size: 0.85rem;
+        }
+
+        /* ── Full-width card (for single service rows) ── */
+        .full-width-card {
+            grid-column: 1 / -1;
+        }
+
+        /* ── Tech Tabs (unchanged) ── */
+        .tech-module-grid {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 3rem;
+            align-items: flex-start;
+        }
+        .tech-selector-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .selector-pill {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 16px 20px;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            -webkit-tap-highlight-color: transparent;
+        }
+        .selector-pill:hover {
+            background: #222;
+            color: var(--text-light);
+        }
+        .selector-pill.active {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.2);
+            transform: translateX(5px);
+        }
+
+        .tech-display-panel {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 3.5rem;
+            position: relative;
+        }
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+        .panel-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .panel-header-left i {
+            color: var(--accent);
+        }
+        .panel-header-left span {
+            font-weight: 900;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        .panel-header-right {
+            font-size: 0.7rem;
+            color: var(--accent);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tech-display-panel h3 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        .panel-description {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .standards-header-label {
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        .standards-subgrid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin-bottom: 2.5rem;
+        }
+        .standard-check-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            padding: 1.2rem;
+            border-radius: 4px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        .standard-check-box i {
+            color: var(--accent);
+            margin-top: 3px;
+        }
+
+        .panel-footer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.5rem;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .panel-footer-row span:first-child {
+            color: #666;
+        }
+        .panel-footer-row span:last-child {
+            color: var(--accent);
+        }
+
+        .tech-tab-content {
+            display: none;
+        }
+        .tech-tab-content.active {
+            display: block;
+            animation: panelFadeIn 0.4s ease forwards;
+        }
+        @keyframes panelFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── CTA ── */
+        .cta-section {
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            text-align: center;
+            background: linear-gradient(rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.7)), url('images/ready_to_secure.jpeg') center/cover;
+        }
+        .cta-container h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+        .cta-container p {
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto 2.5rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        .cta-buttons-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* ── Footer ── */
+        footer {
+            background: #080808;
+            padding: 5rem 0 2rem;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+        .footer-col p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+        .footer-col h5 {
+            font-size: 0.9rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        .footer-links a {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            transition: var(--transition-fast);
+            display: inline-block;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .location-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+        }
+        .location-item i {
+            color: var(--accent);
+            margin-top: 3px;
+        }
+        .loc-text strong {
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 3px;
+        }
+        .loc-text span {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .dispatch-box {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 6px;
+        }
+        .phone-line {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        .phone-line i,
+        .phone-line span {
+            color: var(--accent);
+            font-weight: 800;
+            font-size: 1rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .mini-btns {
+            display: flex;
+            gap: 10px;
+        }
+        .mini-btn {
+            width: 35px;
+            height: 35px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            -webkit-tap-highlight-color: transparent;
+        }
+        .mini-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .verify-btn {
+            background: transparent;
+            display: block;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 10px 0;
+            width: 100%;
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            margin-top: 1rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            -webkit-tap-highlight-color: transparent;
+        }
+        .verify-btn:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        /* ── Scroll Reveal ── */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .reveal-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-1 {
+            transition-delay: 0.15s;
+        }
+
+        /* ── PSIRA ── */
+        .psira-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 1rem;
+            font-size: 0.75rem;
+            color: #666;
+        }
+        .psira-logo {
+            width: 75px;
+            height: 75px;
+            object-fit: contain;
+            display: block;
+        }
+        .psira-badge span {
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        /* ── image placement helpers ── */
+        .commercial-guard-bg {
+            background-position: 20% center !important;
+        }
+        .executive-protection-bg {
+            background-position: 25% center !important;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            .catalog-section-title h2 {
+                font-size: 2.2rem;
+            }
+            .tech-module-grid {
+                grid-template-columns: 280px 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .asymmetrical-grid,
+            .asymmetrical-grid.reversed {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .tech-module-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+            }
+
+            .tech-selector-list {
+                flex-direction: row;
+                flex-wrap: wrap;
+                margin-bottom: 2rem;
+            }
+            .selector-pill {
+                flex: 1 1 calc(50% - 10px);
+            }
+            .selector-pill.active {
+                transform: translateY(-3px);
+            }
+            .logo img {
+                width: 190px;
+                max-width: 190px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 60px 0;
+            }
+            .hero {
+                height: auto;
+                min-height: 50vh;
+            }
+            .hero h1 {
+                font-size: 2.6rem;
+                margin-bottom: 1rem;
+            }
+            .cta-container h2 {
+                font-size: 2.2rem;
+            }
+            .logo img {
+                width: 160px;
+                max-width: 160px;
+            }
+            .standards-subgrid {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #111;
+                flex-direction: column;
+                padding: 0;
+                border-bottom: 1px solid var(--border-color);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease-out;
+                -webkit-overflow-scrolling: touch;
+            }
+            .nav-links.active {
+                max-height: 400px;
+                padding: 2rem;
+                overflow-y: auto;
+            }
+            .nav-links .btn {
+                width: 100%;
+            }
+
+            .cta-buttons-wrapper {
+                flex-direction: column;
+            }
+            .cta-buttons-wrapper .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1.2rem;
+            }
+            .section-padding {
+                padding: 50px 0;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .catalog-section-title h2 {
+                font-size: 1.8rem;
+            }
+            .logo img {
+                width: 130px;
+                max-width: 130px;
+            }
+
+            .feature-image-card,
+            .standard-border-card,
+            .tech-display-panel {
+                padding: 2rem 1.5rem;
+            }
+            .selector-pill {
+                flex: 1 1 100%;
+            }
+            .panel-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .panel-footer-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ═══ HEADER ═══ -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <img src="Untitled design.png" alt="FRS VIP Protection logo" />
+                </div>
+                <div class="menu-toggle" id="mobile-menu" onclick="toggleMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                <div class="nav-links" id="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="services.html" class="active">Services</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="contact.html" class="btn" style="width:100%;">Get Secured</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ═══ HERO ═══ -->
+    <section class="hero">
+        <div class="container scroll-reveal">
+            <div class="hero-catalog-tag">Security Catalog</div>
+            <h1>Elite <span class="text-accent">Protection</span> Services</h1>
+            <p>Absolute discretion and reliable coverage. We provide executive-level safety tailored for high-net-worth individuals and corporate entities in South Africa.</p>
+        </div>
+    </section>
+
+    <!-- ═══ SERVICES CATALOG ═══ -->
+    <section class="section-padding">
+        <div class="container">
+
+            <!-- section title -->
+            <div class="catalog-section-title scroll-reveal">
+                <span>Services Catalog</span>
+                <h2>Comprehensive Solutions</h2>
+            </div>
+
+            <!-- ─── ROW 1 : existing ─── -->
+            <div class="asymmetrical-grid scroll-reveal">
+                <!-- Commercial Guarding -->
+                <div class="feature-image-card commercial-guard-bg" style="background-image: url('images/about_banner.jpeg');">
+                    <span class="status-badge">Registered Status</span>
+                    <div class="card-inner-content">
+                        <span class="card-label">Facility &amp; Asset Guarding</span>
+                        <h3>Commercial Guarding</h3>
+                        <p>Highly trained security personnel stationed at your business premises. Our guards are selected for their professionalism, integrity, and ability to manage complex corporate environments.</p>
+                        <div class="pill-tags">
+                            <span class="pill-tag">Asset Loss Prevention</span>
+                            <span class="pill-tag">Access Control</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Armed Response -->
+                <div class="feature-image-card" style="background-image: url('images/armed_response.jpeg');">
+                    <div class="card-inner-content">
+                        <div class="card-icon-top"><i class="fa-solid fa-shield-halved"></i></div>
+                        <h3>Armed Response</h3>
+                        <p>Rapid tactical deployment for critical situations. Our response teams are equipped with high-range gear and undergo rigorous continuous training.</p>
+                        <a href="contact.html" class="card-link-bottom">24/7 Rapid Deployment <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ─── ROW 2 : existing ─── -->
+            <div class="asymmetrical-grid reversed scroll-reveal">
+                <!-- Executive Protection -->
+                <div class="feature-image-card executive-protection-bg" style="background-image: url('images/exec_protect.jpeg');">
+                    <div class="card-inner-content">
+                        <div class="card-icon-top"><i class="fa-solid fa-user-lock"></i></div>
+                        <h3>Executive Protection</h3>
+                        <p>Discreet and professional close protection for corporate executives, delegates, and families. We prioritize confidentiality and passive safety without altering your schedule. Complete privacy and full NDAs guaranteed.</p>
+                        <div class="checkmark-list">
+                            <div class="checkmark-item"><i class="fa-solid fa-check"></i> Personal C0V-Guards</div>
+                            <div class="checkmark-item"><i class="fa-solid fa-check"></i> Pre-Screened Route Codes</div>
+                        </div>
+                        <span style="font-size:0.65rem; color:var(--accent); font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">* Premium Discretion Assured</span>
+                    </div>
+                </div>
+
+                <!-- Secure Transportation -->
+                <div class="feature-image-card" style="background-image: url('images/cars.jpeg');">
+                    <div class="card-inner-content">
+                        <span class="card-label">Premium Vehicle Logistics</span>
+                        <h3>Secure Transportation</h3>
+                        <p>Reliable and secure transportation for business teams, associates, and families. Our fleet of high-end, premium vehicles ensures you travel with complete safety, supported by on-call supervisor dispatch monitoring.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ NEW SERVICES START HERE ═══ -->
+
+            <!-- ─── ROW 3 : Static Guarding + Access Control ─── -->
+            <div class="asymmetrical-grid scroll-reveal">
+                <!-- Static guarding (armed and unarmed) -->
+                <div class="feature-image-card" style="background-image: url('images/our_securityservices.jpeg');">
+                    <span class="status-badge">Armed &amp; Unarmed</span>
+                    <div class="card-inner-content">
+                        <span class="card-label">On-Site Protection</span>
+                        <h3>Static Guarding</h3>
+                        <p>Professional static guards deployed at your premises, available both armed and unarmed. Our personnel are rigorously vetted, PSIRA-registered, and trained to handle any security threat with precision and composure.</p>
+                        <div class="pill-tags">
+                            <span class="pill-tag">Armed Response</span>
+                            <span class="pill-tag">24/7 Presence</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Access control and visitor management (NOW WITH IMAGE) -->
+                <div class="feature-image-card" style="background-image: url('https://picsum.photos/seed/access_control/600/400');">
+                    <div class="card-inner-content">
+                        <div class="card-icon-top"><i class="fa-solid fa-id-card"></i></div>
+                        <h3>Access Control &amp; Visitor Management</h3>
+                        <p>Comprehensive access control systems combined with professional visitor management. From biometric scanners to visitor logs, we ensure only authorized individuals enter your facilities.</p>
+                        <div class="pill-tags">
+                            <span class="pill-tag">Biometric</span>
+                            <span class="pill-tag">Visitor Logs</span>
+                            <span class="pill-tag">Badge Systems</span>
+                        </div>
+                        <a href="contact.html" class="card-link-bottom">Secure Your Entry <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ─── ROW 4 : Gate/Perimeter + CCTV ─── -->
+            <div class="asymmetrical-grid reversed scroll-reveal">
+                <!-- Gate and perimeter security -->
+                <div class="feature-image-card" style="background-image: url('https://picsum.photos/seed/gate_perimeter/600/400');">
+                    <div class="card-inner-content">
+                        <span class="card-label">Boundary Protection</span>
+                        <h3>Gate &amp; Perimeter Security</h3>
+                        <p>Robust perimeter security solutions including gated access, fencing, barrier systems, and intrusion detection. We design layered defenses to secure your property's boundaries against unauthorized entry.</p>
+                        <div class="checkmark-list">
+                            <div class="checkmark-item"><i class="fa-solid fa-check"></i> Electric Fencing</div>
+                            <div class="checkmark-item"><i class="fa-solid fa-check"></i> Boom Gates</div>
+                            <div class="checkmark-item"><i class="fa-solid fa-check"></i> Intrusion Detection</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CCTV monitoring and surveillance (NOW WITH IMAGE) -->
+                <div class="feature-image-card" style="background-image: url('https://picsum.photos/seed/cctv_surveillance/600/400');">
+                    <div class="card-inner-content">
+                        <div class="card-icon-top"><i class="fa-solid fa-video"></i></div>
+                        <h3>CCTV Monitoring &amp; Surveillance</h3>
+                        <p>State-of-the-art CCTV surveillance systems with 24/7 monitoring by trained operators. Our solutions include high-definition cameras, night vision, motion detection, and remote access for real-time situational awareness.</p>
+                        <div class="pill-tags">
+                            <span class="pill-tag">HD Cameras</span>
+                            <span class="pill-tag">Night Vision</span>
+                            <span class="pill-tag">Remote Access</span>
+                        </div>
+                        <a href="contact.html" class="card-link-bottom">View Coverage <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ─── ROW 5 : Patrol Services + Event Security ─── -->
+            <div class="asymmetrical-grid scroll-reveal">
+                <!-- Patrol services (vehicle and foot patrols) -->
+                <div class="feature-image-card" style="background-image: url('images/patrol_services.jpeg');">
+                    <span class="status-badge">Mobile &amp; Foot</span>
+                    <div class="card-inner-content">
+                        <span class="card-label">Proactive Patrolling</span>
+                        <h3>Patrol Services</h3>
+                        <p>Dedicated vehicle and foot patrols designed to deter criminal activity and provide rapid response. Our patrol teams follow dynamic routes and maintain constant communication with our operations center.</p>
+                        <div class="pill-tags">
+                            <span class="pill-tag">Vehicle Patrol</span>
+                            <span class="pill-tag">Foot Patrol</span>
+                            <span class="pill-tag">Randomized Routes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event security and crowd control (NOW WITH IMAGE) -->
+                <div class="feature-image-card" style="background-image: url('https://picsum.photos/seed/event_security/600/400');">
+                    <div class="card-inner-content">
+                        <div class="card-icon-top"><i class="fa-solid fa-people-arrows"></i></div>
+                        <h3>Event Security &amp; Crowd Control</h3>
+                        <p>Comprehensive event security services including crowd management, access control, VIP protection, and emergency response coordination. We ensure your event runs smoothly and safely from start to finish.</p>
+                        <div class="pill-tags">
+                            <span class="pill-tag">Crowd Flow</span>
+                            <span class="pill-tag">VIP Zones</span>
+                            <span class="pill-tag">Emergency Plans</span>
+                        </div>
+                        <a href="contact.html" class="card-link-bottom">Plan Your Event <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ─── ROW 6 : VIP Protection + Risk Assessment ─── -->
+            <div class="asymmetrical-grid reversed scroll-reveal">
+                <!-- VIP protection services -->
+                <div class="feature-image-card" style="background-image: url('https://picsum.photos/seed/vip_protection/600/400');">
+                    <div class="card-inner-content">
+                        <div class="card-icon-top"><i class="fa-solid fa-crown"></i></div>
+                        <h3>VIP Protection Services</h3>
+                        <p>Elite close protection for high-net-worth individuals, celebrities, diplomats, and corporate leaders. Our VIP protection specialists are trained in advanced defensive tactics, threat assessment, and low-profile security protocols.</p>
+                        <div class="checkmark-list">
+                            <div class="checkmark-item"><i class="fa-solid fa-check"></i> Executive Close Protection</div>
+                            <div class="checkmark-item"><i class="fa-solid fa-check"></i> Route Reconnaissance</div>
+                            <div class="checkmark-item"><i class="fa-solid fa-check"></i> Full Confidentiality</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Risk assessment and threat analysis (NOW WITH IMAGE) -->
+                <div class="feature-image-card" style="background-image: url('https://picsum.photos/seed/risk_assessment/600/400');">
+                    <div class="card-inner-content">
+                        <div class="card-icon-top"><i class="fa-solid fa-chart-line"></i></div>
+                        <h3>Risk Assessment &amp; Threat Analysis</h3>
+                        <p>Comprehensive risk assessments and threat analysis tailored to your specific environment. We identify vulnerabilities, evaluate potential threats, and deliver actionable intelligence to strengthen your security posture.</p>
+                        <div class="pill-tags">
+                            <span class="pill-tag">Vulnerability Audit</span>
+                            <span class="pill-tag">Threat Modeling</span>
+                            <span class="pill-tag">Actionable Intel</span>
+                        </div>
+                        <a href="contact.html" class="card-link-bottom">Assess Your Risk <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ─── ROW 7 : Emergency Response Coordination (full width) ─── -->
+            <div class="asymmetrical-grid scroll-reveal">
+                <div class="feature-image-card full-width-card" style="background-image: url('https://picsum.photos/seed/emergency_response/1200/400');">
+                    <span class="status-badge">24/7/365</span>
+                    <div class="card-inner-content">
+                        <span class="card-label">Crisis Management</span>
+                        <h3>Emergency Response Coordination</h3>
+                        <p>Centralized emergency response coordination ensuring rapid, organized action during any crisis. We integrate with local authorities, deploy multi-disciplinary teams, and maintain real-time communication to mitigate threats effectively.</p>
+                        <div class="pill-tags">
+                            <span class="pill-tag">Crisis Command</span>
+                            <span class="pill-tag">Multi-Agency</span>
+                            <span class="pill-tag">Real-Time Comms</span>
+                            <span class="pill-tag">Evacuation Plans</span>
+                        </div>
+                        <a href="contact.html" class="card-link-bottom">Activate Protocol <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ TECHNICAL INSTALLATIONS (unchanged) ═══ -->
+    <section class="section-padding" style="padding-top:0;">
+        <div class="container">
+            <div class="catalog-section-title scroll-reveal">
+                <span>Technical Installations</span>
+                <h2>Advanced Security <span class="text-accent">Infrastructure</span></h2>
+            </div>
+
+            <div class="tech-module-grid scroll-reveal">
+                <div class="tech-selector-list">
+                    <div class="selector-pill active" onclick="switchTechTab(event, 'tab1')">
+                        <i class="fa-solid fa-lock"></i> Access Control
+                    </div>
+                    <div class="selector-pill" onclick="switchTechTab(event, 'tab2')">
+                        <i class="fa-solid fa-video"></i> Surveillance
+                    </div>
+                    <div class="selector-pill" onclick="switchTechTab(event, 'tab3')">
+                        <i class="fa-solid fa-shield-halved"></i> Intrusion Detection
+                    </div>
+                </div>
+
+                <div class="tech-display-panel">
+                    <!-- Tab 1 -->
+                    <div id="tab1" class="tech-tab-content active">
+                        <div class="panel-header">
+                            <div class="panel-header-left"><i class="fa-solid fa-lock"></i><span>Access Control</span></div>
+                            <div class="panel-header-right">Grade 3 Certified</div>
+                        </div>
+                        <h3>Biometric &amp; Smart Entry</h3>
+                        <p class="panel-description">Our access control systems integrate biometric verification, smart cards, and mobile credentials. Designed for seamless integration with existing infrastructure.</p>
+                        <span class="standards-header-label">Standards &amp; Compliance</span>
+                        <div class="standards-subgrid">
+                            <div class="standard-check-box"><i class="fa-solid fa-check-circle"></i> SANS 10242 Certified</div>
+                            <div class="standard-check-box"><i class="fa-solid fa-check-circle"></i> Real-Time Audit Logs</div>
+                            <div class="standard-check-box"><i class="fa-solid fa-check-circle"></i> Remote Management</div>
+                            <div class="standard-check-box"><i class="fa-solid fa-check-circle"></i> Anti-Passback Logic</div>
+                        </div>
+                        <div class="panel-footer-row">
+                            <span>Integration Ready</span>
+                            <span><i class="fa-solid fa-arrow-right"></i> Request a demo</span>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2 -->
+                    <div id="tab2" class="tech-tab-content">
+                        <div class="panel-header">
+                            <div class="panel-header-left"><i class="fa-solid fa-video"></i><span>Surveillance</span></div>
+                            <div class="panel-header-right">4K &amp; Thermal</div>
+                        </div>
+                        <h3>Intelligent CCTV Networks</h3>
+                        <p class="panel-description">High-resolution cameras with AI-powered analytics, facial recognition, and perimeter intrusion detection. Our surveillance systems are built for clarity and reliability.</p>
+                        <span class="standards-header-label">System Capabilities</span>
+                        <div class="standards-subgrid">
+                            <div class="standard-check-box"><i class="fa-solid fa-check-circle"></i> 4K Ultra HD</div>
+                            <div class="standard-check-box"><i class="fa-solid fa-check-circle"></i> Thermal Imaging</div>
+                            <div class="standard-check-box"><i class="fa-solid fa-check-circle"></i> AI Motion Alerts</div>
+                            <div class="standard-check-box"><i class="fa-solid fa-check-circle"></i> Cloud Storage</div>
+                        </div>
+                        <div class="panel-footer-row">
+                            <span>Fully Scalable</span>
+                            <span><i class="fa-solid fa-arrow-right"></i> Explore solutions</span>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3 -->
+                    <div id="tab3" class="tech-tab-content">
+                        <div class="panel-header">
+                            <div class="panel-header-left"><i class="fa-solid fa-shield-halved"></i><span>Intrusion Detection</span></div>
+                            <div class="panel-header-right">SANS 10111</div>
+                        </div>
+                        <h3>Perimeter &amp; Interior Sensors</h3>
+                        <p class="panel-description">Advanced intrusion detection systems combining motion sensors, glass-break detectors, and infrared barriers. Immediate alerts with verified event confirmation.</p>
+                        <span class="standards-header-label">Detection Layers</span>
+                        <div class="standards-subgrid">
+                            <div class="standard-check-box"><i class="fa-solid fa-check-circle"></i> Dual-Tech Motion</div>
+                            <div class="standard-check-box"><i class="fa-solid fa-check-circle"></i> Glass-Break Sensors</div>
+                            <div class="standard-check-box"><i class="fa-solid fa-check-circle"></i> Infrared Barriers</div>
+                            <div class="standard-check-box"><i class="fa-solid fa-check-circle"></i> Shock Sensors</div>
+                        </div>
+                        <div class="panel-footer-row">
+                            <span>24/7 Monitoring</span>
+                            <span><i class="fa-solid fa-arrow-right"></i> Get protected</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CTA SECTION ═══ -->
+    <section class="section-padding cta-section">
+        <div class="container cta-container scroll-reveal">
+            <h2>Ready To Secure <span class="text-accent">Your Property?</span></h2>
+            <p>Protect your business, associates, and home with professional security coverage customized specifically to your setup. Reach out now.</p>
+            <div class="cta-buttons-wrapper">
+                <a href="contact.html" class="btn">Request A Free Quote</a>
+                <a href="contact.html" class="btn btn-outline">Talk To An Expert</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid scroll-reveal">
+                <div class="footer-col">
+                    <!-- Footer logo -->
+                    <div class="footer-logo">
+                        <img src="Untitled design.png" alt="FRS VIP Protection logo" style="width: 220px; max-width: 220px; height: auto;">
+                    </div>
+                    <p>South Africa's leading private intelligence and executive protection firm. Dedicated to absolute autonomy, discretion, and unwavering vigilance. Registered and regulated by PSIRA.</p>
+                    <!-- PSIRA Badge with logo -->
+                    <div class="psira-badge">
+                        <img src="images/PSIRA.png" alt="PSIRA" class="psira-logo">
+                        <span>PSIRA Reg: 4862292</span>
+                    </div>
+                    <!-- South African Flag added below PSIRA Reg -->
+                    <div style="margin-top: 10px;">
+                        <img src="images/flag.jpg" alt="South African Flag" style="max-height: 50px; width: auto;">
+                    </div>
+                    <div class="mini-btns" style="margin-top: 1.5rem;">
+                        <div class="mini-btn"><i class="fa-solid fa-globe"></i></div>
+                        <div class="mini-btn"><i class="fa-solid fa-shield-halved"></i></div>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Regional HQs</h5>
+                    <div class="location-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div class="loc-text">
+                            <strong>Durban HQ</strong>
+                            <span>86 Suleman Road, Parlock, Newlands West, Durban</span>
+                        </div>
+                    </div>
+                    <!-- New Tongaat location added here -->
+                    <div class="location-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div class="loc-text">
+                            <strong>Tongaat</strong>
+                            <span>2 planters drive, Fairbreeze, Tongaat</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Emergency Dispatch Hub</h5>
+                    <div class="dispatch-box">
+                        <div class="phone-line">
+                            <i class="fa-solid fa-phone"></i>
+                            <span>+27 72 875 3169</span>
+                        </div>
+                        <div class="phone-line">
+                            <i class="fa-solid fa-phone"></i>
+                            <span>+27 61 508 1951</span>
+                        </div>
+                        <p style="font-size: 0.65rem; color: #666; margin: 10px 0; text-transform: uppercase; letter-spacing: 1px;">Operations Center Available 24/7/365</p>
+                        <div style="font-size:0.8rem; color:var(--text-muted); display:flex; gap:10px; align-items:center; margin-bottom:5px;"><i class="fa-regular fa-envelope"></i> firstandsecure@gmail.com</div>
+                        <div style="font-size:0.8rem; color:var(--text-muted); display:flex; gap:10px; align-items:center;"><i class="fa-solid fa-map-pin"></i> South Africa</div>
+                        <a href="contact.html" class="verify-btn">Verify Compliance</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom scroll-reveal">
+                <div>&copy; 2026 FRS VIP PROTECTION. PSIRA Reg: 4862292. All Rights Reserved.</div>
+                <div>Designed For Ultimate Discretion</div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ═══ SCRIPTS ═══ -->
+    <script>
+        // ── Technical Tabs ──
+        function switchTechTab(evt, tabName) {
+            var contents = document.getElementsByClassName("tech-tab-content");
+            for (var i = 0; i < contents.length; i++) {
+                contents[i].style.display = "none";
+                contents[i].classList.remove("active");
+            }
+            var pills = document.getElementsByClassName("selector-pill");
+            for (var i = 0; i < pills.length; i++) {
+                pills[i].classList.remove("active");
+            }
+            var activeTab = document.getElementById(tabName);
+            activeTab.style.display = "block";
+            setTimeout(function() { activeTab.classList.add("active"); }, 10);
+            evt.currentTarget.classList.add("active");
+        }
+
+        // ── Mobile Menu ──
+        function toggleMenu() {
+            var nav = document.getElementById("nav-links");
+            nav.classList.toggle("active");
+            var icon = document.querySelector(".menu-toggle i");
+            if (nav.classList.contains("active")) {
+                icon.classList.remove("fa-bars");
+                icon.classList.add("fa-xmark");
+            } else {
+                icon.classList.remove("fa-xmark");
+                icon.classList.add("fa-bars");
+            }
+        }
+
+        // ── Scroll Reveal ──
+        document.addEventListener('DOMContentLoaded', function() {
+            var options = { root: null, rootMargin: '0px', threshold: 0.1 };
+            var observer = new IntersectionObserver(function(entries, obs) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-visible');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, options);
+            var targets = document.querySelectorAll('.scroll-reveal');
+            targets.forEach(function(el) { observer.observe(el); });
+        });
+    </script>
+
+</body>
+</html>
